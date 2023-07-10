@@ -59,7 +59,6 @@ const  Home =()=> {
     };
   
     const viewUserDetails = (user) => {
-        console.log("user",user); 
         setShowComponent(true);
         setUserDate(user);
 
