@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@soluto-private/mx-asurion-ui-react';
+import LinkUserDetails from './LinkUserDetails';
 
-function Home () {
+const  Home =()=> {
     const [selectedOption, setSelectedOption] = useState('');
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInputValue] = useState('');
-    const [customerData, setCustomerData] = useState([]);
+    const [users, setCustomerData] = useState([]);
+    const [data, setUserDate] = useState([]);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const[showCC, setShowCC] = useState(false);
+    const [showComponent, setShowComponent] = useState(false);
+    //const [key, setKey] = useState('');
   
     const handleOptionChange = (event) => {
       console.log('event',event.target.value);
@@ -51,8 +55,15 @@ function Home () {
       setFirstName('');
       setLastName('');
       setShowCC(false)
+      //setKey('');
     };
   
+    const viewUserDetails = (user) => {
+        console.log("user",user); 
+        setShowComponent(true);
+        setUserDate(user);
+
+    };
    const renderOptionContent = () => 
     {
       if(selectedOption === 'option1') { 
@@ -108,15 +119,18 @@ function Home () {
           <div>
             <table>
       <tbody>
-        <tr>
-          <td>First Name:</td>
-          <td>Phone:</td>
-        </tr>
-        {customerData?.map((customer) => (
-          <tr key={customer.id}>
-            <td>{customer.name}</td>
-            <td>{customer.phone}</td>
-            <td ><Button >View Details</Button></td>
+        
+        {users?.map((user) => (
+          <tr key={user.id}>
+            <td>{user.name}</td>
+            <td>{user.phone}</td>
+            <td >
+                <div>
+                <Button onClick ={()=>viewUserDetails(user)}>View Details</Button>
+                {showComponent?
+           <LinkUserDetails data={data}/> :
+           null
+        }</div></td>
           </tr>
         ))}
   
